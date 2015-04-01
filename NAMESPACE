@@ -1,0 +1,4 @@
+exportPattern("^[^\\.]")
+importFrom(dendextend, `labels<-`)
+importFrom(magrittr, `%>%`)
+
