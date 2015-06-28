@@ -101,10 +101,10 @@ caret_infer<-function(data, case.ids, outcome, inter.func, type, clust.iter.max,
   
   ### Train model
   if(type=="c"){
-    form<-as.formula(paste("factor(", outcome, ")~.", sep=""))
+    form<-stats::as.formula(paste("factor(", outcome, ")~.", sep=""))
   }
   if(type=="r"){
-    form<-as.formula(paste(outcome, "~.", sep=""))    
+    form<-stats::as.formula(paste(outcome, "~.", sep=""))    
   }
   out<-caret::train(form = form, data = data.expand, ...)
 
@@ -117,7 +117,7 @@ caret_infer<-function(data, case.ids, outcome, inter.func, type, clust.iter.max,
     survivors<-rownames(imp)[!is.na(imp)]
     imp<-imp[!is.na(imp)]
     names(imp)<-survivors
-    kmeans.sol<-kmeans(x=imp, centers=2)$cluster
+    kmeans.sol<-stats::kmeans(x=imp, centers=2)$cluster
     s<-split(x=kmeans.sol, f=kmeans.sol)
     m<-sapply(X=1:length(s), function(x){
       mean(imp[names(imp) %in% names(s[[x]])])

@@ -23,11 +23,11 @@ clust.iter.max, clust.nstart, clust.alg, qca.style, ...)
 \item{inter.func}{a function detailing how variable values should be combined
 to create interaction values}
 
-\item{clust.iter.max}{the maximum number of iterations allowed in \code{kmeans()}}
+\item{clust.iter.max}{the maximum number of iterations allowed in \code{stats::kmeans()}}
 
-\item{clust.nstart}{number of random sets to be chosen in \code{kmeans()}}
+\item{clust.nstart}{number of random sets to be chosen in \code{stats::kmeans()}}
 
-\item{clust.alg}{the clustering algorithm used by \code{kmeans()}}
+\item{clust.alg}{the clustering algorithm used by \code{stats::kmeans()}}
 
 \item{qca.style}{logical; if TRUE, return QCA-style printed solutions}
 

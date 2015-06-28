@@ -55,6 +55,6 @@ data(hh)
 hh<-hh[,-which(colnames(hh)=="Country")]
 
 # Run function
-fsqca_sim(data = hh, outcome = "success", reps=50, plot = TRUE)
+fsqca_sim(data = hh, outcome = "success", reps=25, plot = TRUE)
 }
 

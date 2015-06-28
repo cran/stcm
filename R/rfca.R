@@ -14,9 +14,9 @@
 #'@param mtry the number of variables to try at each split
 #'@param inter.func a function detailing how variable values should be combined 
 #'to create interaction values
-#'@param clust.iter.max the maximum number of iterations allowed in \code{kmeans()}
-#'@param clust.nstart number of random sets to be chosen in \code{kmeans()}
-#'@param clust.alg the clustering algorithm used by \code{kmeans()} 
+#'@param clust.iter.max the maximum number of iterations allowed in \code{stats::kmeans()}
+#'@param clust.nstart number of random sets to be chosen in \code{stats::kmeans()}
+#'@param clust.alg the clustering algorithm used by \code{stats::kmeans()} 
 #'@param qca.style logical; if TRUE, return QCA-style printed solutions 
 #'@param ... arguments passed to \code{randomForest()}
 #'
@@ -82,7 +82,7 @@ rfca<-function(data, outcome, case.ids, fuzzy, ntree, mtry, inter.func, clust.it
   ### Carry out dichotomization, if necessary
   if(fuzzy){
     dat.f<-as.matrix(data[sapply(data,is.numeric)])
-    crossover<-median(dat.f, na.rm = T)
+    crossover<-stats::median(dat.f, na.rm = T)
     dat.f[dat.f>=crossover]<-1
     dat.f[dat.f<crossover]<-0
     data[sapply(data,is.numeric)]<-dat.f
@@ -96,7 +96,7 @@ rfca<-function(data, outcome, case.ids, fuzzy, ntree, mtry, inter.func, clust.it
   result<-randomForest::randomForest(y = factor(data[,outcome]), x = dat, ntree = ntree, mtry = mtry, ...)
   result<-tryCatch(expr = {
     imp<-result$importance
-    kmeans.sol<-kmeans(x=imp, centers=2, iter.max = clust.iter.max, algorithm = clust.alg)$cluster
+    kmeans.sol<-stats::kmeans(x=imp, centers=2, iter.max = clust.iter.max, algorithm = clust.alg)$cluster
     s<-split(x=kmeans.sol, f=kmeans.sol)
     m<-sapply(X=1:length(s), function(x){
       mean(imp[rownames(imp) %in% names(s[[x]])])

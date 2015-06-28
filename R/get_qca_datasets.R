@@ -47,7 +47,7 @@ get_qca_datasets<-function(csQCA, mvQCA, fsQCA){
     cat("Downloading csQCA datasets ")
     csQCA.datasets<-lapply(X=1:length(links), function(x){
       cat(".")
-      out.data<-tryCatch(read.csv(file=links[x]), error=function(e) NULL)
+      out.data<-tryCatch(utils::read.csv(file=links[x]), error=function(e) NULL)
       out.link<-stubs[x]
       return(list(out.link, out.data))
     })
@@ -61,7 +61,7 @@ get_qca_datasets<-function(csQCA, mvQCA, fsQCA){
     cat("Downloading mvQCA datasets ")
     mvQCA.datasets<-lapply(X=1:length(links), function(x){
       cat(".")
-      out.data<-tryCatch(read.csv(file=links[x]), error=function(e) NULL)
+      out.data<-tryCatch(utils::read.csv(file=links[x]), error=function(e) NULL)
       out.link<-stubs[x]
       return(list(out.link, out.data))
     })
@@ -75,7 +75,7 @@ get_qca_datasets<-function(csQCA, mvQCA, fsQCA){
     cat("Downloading fsQCA datasets ")
     fsQCA.datasets<-lapply(X=1:length(links), function(x){
       cat(".")
-      out.data<-tryCatch(read.csv(file=links[x]), error=function(e) NULL)
+      out.data<-tryCatch(utils::read.csv(file=links[x]), error=function(e) NULL)
       out.link<-stubs[x]
       return(list(out.link, out.data))
     })

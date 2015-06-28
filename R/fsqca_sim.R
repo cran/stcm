@@ -38,7 +38,7 @@
 #'hh<-hh[,-which(colnames(hh)=="Country")]
 #'
 #'# Run function
-#'fsqca_sim(data = hh, outcome = "success", reps=50, plot = TRUE)
+#'fsqca_sim(data = hh, outcome = "success", reps=25, plot = TRUE)
 fsqca_sim<-function(data, outcome, conditions, min.incl.cut, max.incl.cut, min.n.cut, max.n.cut, reps, plot, plot.legend, verbose, ...){
     
   ### Temporary workaround for bug in QCA::eqmcc()

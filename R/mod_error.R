@@ -76,14 +76,14 @@ mod_error<-function(data, case.ids, outcome, conditions, type, number, reps, ana
   ### Create list of data frames
   if(type=="crisp"){
     out<-replicate(n = reps, simplify = F, expr = {
-      dat<-data.frame(matrix(data = rbinom(n = nrow(data)*number, size = 1, prob = 0.5), nrow = nrow(data), ncol = number))
+      dat<-data.frame(matrix(data = stats::rbinom(n = nrow(data)*number, size = 1, prob = 0.5), nrow = nrow(data), ncol = number))
       colnames(dat)<-paste("random_variable", 1:number, sep = "_")
       data.frame(data, dat)
     })
   } 
   if(type=="fuzzy"){
     out<-replicate(n = reps, simplify = F, expr = {
-      dat<-data.frame(matrix(data = runif(n = nrow(data)*number, min = 0, max = 1), nrow = nrow(data), ncol = number))
+      dat<-data.frame(matrix(data = stats::runif(n = nrow(data)*number, min = 0, max = 1), nrow = nrow(data), ncol = number))
       colnames(dat)<-paste("random_variable", 1:number, sep = "_")
       data.frame(data, dat)
     })
@@ -112,7 +112,7 @@ mod_error<-function(data, case.ids, outcome, conditions, type, number, reps, ana
     top.conds<-nrow(result.freq)-(0:(max.cond.plot-1))
     if(min(top.conds)<0){top.conds<-1:nrow(result.freq)}
     .e<-environment()
-    plot<-ggplot2::ggplot(data = result.freq[top.conds,], ggplot2::aes(x = reorder(config, count), y = count/reps, fill=base.sol), environment=.e)+
+    plot<-ggplot2::ggplot(data = result.freq[top.conds,], ggplot2::aes(x = stats::reorder(config, count), y = count/reps, fill=base.sol), environment=.e)+
       ggplot2::geom_bar(stat="identity")+ggplot2::coord_flip()+ggplot2::theme_bw()+ggplot2::xlab(label = "Condition")+ggplot2::ylab("Frequency (per Solution)")+
       ggplot2::scale_fill_manual(name="Base\nSolution?",values = c("grey50", "black"))
     

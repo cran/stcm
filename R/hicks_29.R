@@ -6,7 +6,7 @@
 #' of income security programs.
 #' @docType data
 #' @format A data frame with 15 rows and 7 variables
-#' @source \url{http://www.compasss.org/bibliography/data/HicksEtal1995set.csv}
+#' @source \url{http://www.compasss.org/bibliography/data/HicksEtal1995set2.csv}
 #' @references Hicks, Alexander, Joya Misra, and Tang Nah Ng. 1995. 
 #' "The Programmatic Emergence of the Social Security State." 
 #' American Sociological Review 60 (3):329-49.

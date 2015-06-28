@@ -117,7 +117,7 @@ meas_error<-function(data, case.ids, outcome, conditions, type, error.level, fuz
         dat<-as.matrix(data)
         switchers<-sample(x = 1:length(dat), size = ceiling(length(dat)*opts$error.level[row]), replace = F)
         dat[switchers]<-sapply(X = dat[switchers], FUN = function(num){
-          runif(n = 1, min = max(0, num-fuzzy.range/2), max = min(1, num+fuzzy.range/2))
+          stats::runif(n = 1, min = max(0, num-fuzzy.range/2), max = min(1, num+fuzzy.range/2))
         })
         data.frame(dat)
       })
@@ -146,7 +146,7 @@ meas_error<-function(data, case.ids, outcome, conditions, type, error.level, fuz
     top.conds<-nrow(result.freq)-(0:(max.cond.plot-1))
     if(min(top.conds)<0){top.conds<-1:nrow(result.freq)}
     .e<-environment()
-    plot<-ggplot2::ggplot(data = result.freq[top.conds,], ggplot2::aes(x = reorder(config, count), y = count/reps, fill=base.sol), environment=.e)+
+    plot<-ggplot2::ggplot(data = result.freq[top.conds,], ggplot2::aes(x = stats::reorder(config, count), y = count/reps, fill=base.sol), environment=.e)+
       ggplot2::geom_bar(stat="identity")+ggplot2::coord_flip()+ggplot2::theme_bw()+ggplot2::xlab(label = "Condition")+ggplot2::ylab("Frequency (per Solution)")+
       ggplot2::scale_fill_manual(name="Base\nSolution?",values = c("grey50", "black"))
     

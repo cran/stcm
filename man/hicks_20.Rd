@@ -6,7 +6,7 @@
 \title{Replication Data from Hicks et al. (1995)}
 \format{A data frame with 15 rows and 7 variables}
 \source{
-\url{http://www.compasss.org/bibliography/data/HicksEtal1995set.csv}
+\url{http://www.compasss.org/bibliography/data/HicksEtal1995set1.csv}
 }
 \usage{
 hicks_20

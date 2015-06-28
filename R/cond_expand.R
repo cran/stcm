@@ -60,7 +60,7 @@ cond_expand<-function(data, case.ids, outcome, conditions, inter.func){
   pred<-data[,conditions]
   
   ### Expander for non-binary data
-  cols<-unlist(x = lapply(X = 2:ncol(pred), FUN = function(m){combn(x = colnames(pred), m = m, simplify = F)}), recursive = F)
+  cols<-unlist(x = lapply(X = 2:ncol(pred), FUN = function(m){utils::combn(x = colnames(pred), m = m, simplify = F)}), recursive = F)
   data.exp<-data.frame(
     sapply(X = 1:length(cols), FUN = function(col){
     apply(X = data[,cols[[col]]], MARGIN = 1, FUN = inter.func)

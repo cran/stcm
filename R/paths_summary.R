@@ -146,7 +146,7 @@ paths_summary<-function(data, case.ids, outcome, conditions, plot, verbose, size
     cat("Getting possible paths...\n")
   }
   ### Get possible paths
-  paths.pos<-data.frame(unique(t(combn(x = rep(x = c(0,1), times = length(conditions)), m = length(conditions)))))
+  paths.pos<-data.frame(unique(t(utils::combn(x = rep(x = c(0,1), times = length(conditions)), m = length(conditions)))))
   paths.pos<-paths.pos[do.call(order,paths.pos),]
   colnames(paths.pos)<-conditions
   rownames(paths.pos)<-NULL
@@ -216,10 +216,10 @@ paths_summary<-function(data, case.ids, outcome, conditions, plot, verbose, size
     ### Create dendrogram of paths to outcome
     
     # Make distance matrix from x = 1:(2^k)
-    in.mat<-dist(x = 1:n.paths.possible)
+    in.mat<-stats::dist(x = 1:n.paths.possible)
     
     # Create the cluster object
-    out<-hclust(d = in.mat, method = "average")
+    out<-stats::hclust(d = in.mat, method = "average")
     
     # Normalize the height of the tree
     span<-1/length(unique(out$height))
@@ -228,7 +228,7 @@ paths_summary<-function(data, case.ids, outcome, conditions, plot, verbose, size
     }
     
     # Convert data into class of dendrogram
-    d.out<-as.dendrogram(out)
+    d.out<-stats::as.dendrogram(out)
     
     # Plot
     plot(d.out)
@@ -245,15 +245,15 @@ paths_summary<-function(data, case.ids, outcome, conditions, plot, verbose, size
     d.out %>% dendextend::set("by_labels_branches_lty", value = c("0", "1", "0,1"), c(1,3), type="any") %>% 
       dendextend::set("by_labels_branches_lwd", value = c("0", "1", "0,1"), c(3,1), type="any") %>% plot(yaxt = "n", ann=F)
 
-    node.xy<-dendextend::get_nodes_xy(x = d.out)
+    node.xy<-dendextend::get_nodes_xy(d.out)
     for(i in 1:length(unique(node.xy[,2]))){
       if(unique(node.xy[,2])[i]!=0){
         y.val<-unique(node.xy[,2])[i]
         x.vals<-node.xy[,1][node.xy[,2]==y.val]
-        text(cex=.75, x = x.vals, y = y.val-(span*.1), paste("0", colnames(paths.pos)[i], "1", sep="-"))
+        graphics::text(cex=.75, x = x.vals, y = y.val-(span*.1), paste("0", colnames(paths.pos)[i], "1", sep="-"))
       }
     }
-    paths.plot<-recordPlot()
+    paths.plot<-grDevices::recordPlot()
     options(warn=1)
   }else{
     paths.plot<-NULL
@@ -263,9 +263,9 @@ paths_summary<-function(data, case.ids, outcome, conditions, plot, verbose, size
     cat("Getting multicollinearity measurements...\n")
   }
   # Calculate multicollinearity (avg bivariate correlation)
-  multivar.com<-combn(x = conditions, m = 2)
+  multivar.com<-utils::combn(x = conditions, m = 2)
   cors<-apply(X = multivar.com, MARGIN = 2, FUN = function(x){
-    cor(x = d[,x[1]], y = d[,x[2]])
+    stats::cor(x = d[,x[1]], y = d[,x[2]])
   })
   multicollinearity.df<-data.frame(condition=t(multivar.com), cor=cors, abs.cors=abs(cors))
   multicollinearity.df<-plyr::arrange(multicollinearity.df, plyr::desc(abs.cors))
@@ -289,4 +289,3 @@ paths_summary<-function(data, case.ids, outcome, conditions, plot, verbose, size
                     multicollinearity.avg=multicollinearity.avg)
   return(return.list)
 }
-

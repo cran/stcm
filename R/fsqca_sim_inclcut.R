@@ -81,8 +81,8 @@ fsqca_sim_inclcut<-function(data, outcome, conditions, min.incl.cut, max.incl.cu
   }
   
   # Create incl.cut value pairs
-  incl.cut1.val<-runif(n=3*reps, min=min.incl.cut, max=max.incl.cut)
-  incl.cut0.val<-runif(n=3*reps, min=0, max=max.incl.cut)
+  incl.cut1.val<-stats::runif(n=3*reps, min=min.incl.cut, max=max.incl.cut)
+  incl.cut0.val<-stats::runif(n=3*reps, min=0, max=max.incl.cut)
   n.cut.val<-rep(x=n.cut, times=3*reps)
   vals<-cbind(incl.cut1.val, incl.cut0.val, n.cut.val)
   vals<-vals[incl.cut1.val>=incl.cut0.val,]
